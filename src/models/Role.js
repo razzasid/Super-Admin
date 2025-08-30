@@ -13,12 +13,6 @@ const roleSchema = new mongoose.Schema(
         message: "Role must be one of: superadmin, admin, user, viewer",
       },
     },
-    
-    displayName: {
-      type: String,
-      required: [true, "Display name is required"],
-      trim: true,
-    },
 
     permissions: [
       {

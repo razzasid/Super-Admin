@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Role = require("../models/Role");
 
 // Verify JWT token
 const verifyToken = async (req, res, next) => {
@@ -77,7 +78,20 @@ const requireSuperAdmin = async (req, res, next) => {
       });
     }
 
-    if (!req.user?.roles.includes("superadmin")) {
+    // Find the superadmin role's _id
+    const superadminRole = await Role.findOne({ name: "superadmin" });
+    if (!superadminRole) {
+      return res.status(500).json({
+        success: false,
+        error: {
+          code: "CONFIG_ERROR",
+          message: "Superadmin role not configured.",
+        },
+      });
+    }
+
+    // Check if the superadmin role's _id is in the user's roles array
+    if (!req.user.roles.includes(superadminRole._id)) {
       return res.status(403).json({ message: "Superadmin role required" });
     }
 

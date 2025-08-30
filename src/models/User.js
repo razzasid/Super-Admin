@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema(
       minlength: [6, "password must be atleast 6 characters long"],
     },
     roles: {
-      type: [String],
-      enum: ["superadmin", "admin", "user"],
-      default: ["user"],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Role", 
+      default: [], 
     },
     lastLogin: {
       type: Date,
@@ -38,9 +38,6 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-// Indexes for performance
-userSchema.index({ email: 1 });
 
 // Pre-save hook to hash password
 userSchema.pre("save", async function (next) {
