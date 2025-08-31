@@ -67,8 +67,8 @@ npm install
 ```bash
 cd client
 npm install
-cd ..
 cp .env.example .env
+cd ..
 ```
 
 ### 3. Configure environment
