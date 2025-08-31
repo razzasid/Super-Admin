@@ -14,6 +14,8 @@ const {
   updateRole,
   assignRole,
 } = require("../controllers/roleController");
+const { getAuditLogs } = require("../controllers/auditLogController");
+const { getAnalyticsSummary } = require("../controllers/analyticsController");
 
 router.use(verifyToken, requireSuperAdmin);
 
@@ -31,5 +33,11 @@ router.put("/roles/:id", updateRole);
 
 // Role assignment
 router.post("/assign-role", assignRole);
+
+// Audit logs
+router.get("/audit-logs", getAuditLogs);
+
+// Analytics
+router.get("/analytics/summary", getAnalyticsSummary);
 
 module.exports = router;

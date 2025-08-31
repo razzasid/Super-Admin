@@ -2,7 +2,7 @@ const User = require("../models/User");
 const { generateToken } = require("../middleware/auth");
 const AuditLog = require("../models/AuditLog");
 
-const login = async (req, res, next) => {
+exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
@@ -76,10 +76,6 @@ const login = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error); 
+    next(error);
   }
-};
-
-module.exports = {
-  login,
 };

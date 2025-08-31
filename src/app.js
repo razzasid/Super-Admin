@@ -1,7 +1,6 @@
 const express = require("express");
 const authRoutes = require("./routes/auth.js");
 const superadminRoutes = require("./routes/superadmin.js");
-const { verifyToken, requireSuperAdmin } = require("./middleware/auth");
 require("dotenv").config();
 
 const connectDB = require("./utils/database.js");
