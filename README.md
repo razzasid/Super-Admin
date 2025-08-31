@@ -142,7 +142,7 @@ cd client
 npm start
 ```
 
-Frontend runs at: `http://localhost:5173` (Vite default) or `http://localhost:3001` (CRA default).
+Frontend runs at: `http://localhost:5173` (Vite default)
 
 ---
 
