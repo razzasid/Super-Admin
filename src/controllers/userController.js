@@ -19,7 +19,8 @@ exports.getUsers = async (req, res, next) => {
     const users = await User.find(query)
       .select("-hashedPassword")
       .skip(skip)
-      .limit(parseInt(limit));
+      .limit(parseInt(limit))
+      .populate("roles", "name");
     const total = await User.countDocuments(query);
 
     res.json({
@@ -120,6 +121,12 @@ exports.updateUser = async (req, res, next) => {
 
     res.json({ success: true, data: user });
   } catch (error) {
+    if (error.name === "MongoServerError" && error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "Duplicate email detected. Please use a unique email address.",
+      });
+    }
     next(error);
   }
 };

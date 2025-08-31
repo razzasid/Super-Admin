@@ -1,6 +1,7 @@
 const express = require("express");
 const authRoutes = require("./routes/auth.js");
 const superadminRoutes = require("./routes/superadmin.js");
+const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require("./utils/database.js");
@@ -12,7 +13,7 @@ connectDB();
 
 //middlewares
 app.use(express.json());
-
+app.use(cors());
 // API Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/superadmin", superadminRoutes);

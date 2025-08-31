@@ -15,7 +15,7 @@ exports.login = async (req, res, next) => {
     }
 
     // Find user by email
-    const user = await User.findByEmail(email);
+    const user = await User.findByEmail(email).populate("roles", "name");
     if (!user) {
       await AuditLog.create({
         actorUserId: null,

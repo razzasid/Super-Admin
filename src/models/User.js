@@ -26,11 +26,12 @@ const userSchema = new mongoose.Schema(
       required: [true, "password is required"],
       minlength: [6, "password must be atleast 6 characters long"],
     },
-    roles: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Role", 
-      default: [], 
-    },
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
+      },
+    ],
     lastLogin: {
       type: Date,
       default: null,

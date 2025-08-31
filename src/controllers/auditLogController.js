@@ -2,7 +2,14 @@ const AuditLog = require("../models/AuditLog");
 
 exports.getAuditLogs = async (req, res, next) => {
   try {
-    const { user, action, startDate, endDate, page = 1, limit = 10 } = req.query;
+    const {
+      user,
+      action,
+      startDate,
+      endDate,
+      page = 1,
+      limit = 10,
+    } = req.query;
     const skip = (page - 1) * limit;
 
     let query = {};
@@ -25,9 +32,11 @@ exports.getAuditLogs = async (req, res, next) => {
     }
 
     const auditLogs = await AuditLog.find(query)
+      .populate("actorUserId", "name")
       .skip(skip)
       .limit(parseInt(limit))
       .sort({ timestamp: -1 });
+
     const total = await AuditLog.countDocuments(query);
 
     return res.json({
